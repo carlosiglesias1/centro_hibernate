@@ -6,13 +6,13 @@ import java.sql.Statement;
 import java.util.List;
 
 import com.model.AlumnoDAO;
-import com.model.Asignatura;
 import com.model.Alumno;
-import com.model.AsignaturaDAO;
 import com.model.Matricula;
 import com.model.MatriculaDAO;
 import com.model.Profesor;
 import com.model.ProfesorDAO;
+import com.model.asignatura.Asignatura;
+import com.model.asignatura.AsignaturaDAO;
 import com.view.Errores;
 import com.view.Menu;
 

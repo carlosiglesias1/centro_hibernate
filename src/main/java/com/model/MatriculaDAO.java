@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.asignatura.Asignatura;
+
 public class MatriculaDAO implements DAO<Matricula> {
 
     /**
@@ -52,7 +54,8 @@ public class MatriculaDAO implements DAO<Matricula> {
     /**
      * @param Conexion
      * @param matriculas
-     * @return Asrray de enteros con los resultados de insertar las matriculas del alumno
+     * @return Asrray de enteros con los resultados de insertar las matriculas del
+     *         alumno
      */
     public int[] insert(Connection conn, Matricula[] matriculas) {
         try (PreparedStatement s = conn
@@ -68,5 +71,17 @@ public class MatriculaDAO implements DAO<Matricula> {
             System.out.println(e.getSQLState() + ": " + e.getMessage());
             return new int[0];
         }
+    }
+
+    public int update(Connection conn, Matricula matricula) {
+        return -1;
+    }
+
+    public int insert(Connection conn, Matricula matricula) {
+        return -1;
+    }
+
+    public int delete(Connection conn, Matricula matricula) {
+        return 0;
     }
 }

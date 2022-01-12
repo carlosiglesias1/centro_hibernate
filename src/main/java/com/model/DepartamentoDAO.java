@@ -11,8 +11,8 @@ import java.util.List;
 import com.view.Errores;
 
 public class DepartamentoDAO implements DAO<Departamento> {
-    
-    /** 
+
+    /**
      * @param id
      * @return Departamento
      */
@@ -21,8 +21,7 @@ public class DepartamentoDAO implements DAO<Departamento> {
         return new Departamento();
     }
 
-    
-    /** 
+    /**
      * @param conn
      * @return List<Departamento>
      */
@@ -58,8 +57,7 @@ public class DepartamentoDAO implements DAO<Departamento> {
         return lista;
     }
 
-    
-    /** 
+    /**
      * @param conn
      * @param dept
      * @return int
@@ -74,8 +72,11 @@ public class DepartamentoDAO implements DAO<Departamento> {
         }
     }
 
-    
-    /** 
+    public int update(Connection conn, Departamento dept) {
+        return -1;
+    }
+
+    /**
      * @param conn
      * @param dept
      * @return int

@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.asignatura.Asignatura;
 import com.view.Errores;
 
 public class ProfesorDAO implements DAO<Profesor> {

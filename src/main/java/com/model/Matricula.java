@@ -1,5 +1,7 @@
 package com.model;
 
+import com.model.asignatura.Asignatura;
+
 public class Matricula {
     private int id;
     private Alumno idalumno;

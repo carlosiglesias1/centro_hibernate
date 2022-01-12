@@ -3,8 +3,9 @@ package com.controller;
 import java.sql.Connection;
 import java.util.List;
 
-import com.model.AsignaturaDAO;
-import com.model.Asignatura;
+import com.model.asignatura.Asignatura;
+import com.model.asignatura.AsignaturaDAO;
+import com.model.asignatura.AsignaturaService;
 import com.view.Errores;
 import com.view.Menu;
 
@@ -13,21 +14,18 @@ public class AsignaturaController {
         // Empty
     }
 
-    
-    /** 
+    /**
      * Crea una nueva asignatura
      * 
-     * @param Conexion
+     * @param AsignaturaService
      * @param menu
-     * @param asignaturaDAO
      */
-    static void crearAsignatura(Connection conn, Menu menu, AsignaturaDAO asignaturaDAO) {
+    static void crearAsignatura(AsignaturaService asignaturaService, Menu menu) {
         Asignatura asignatura = menu.inputAsignatura();
-        asignaturaDAO.insert(conn, asignatura);
+        asignaturaService.persist(asignatura);
     }
 
-    
-    /** 
+    /**
      * Borra una asignatura existente
      * 
      * @param conn
@@ -47,8 +45,7 @@ public class AsignaturaController {
         }
     }
 
-    
-    /** 
+    /**
      * Sobreescribe una asignatura existente
      * 
      * @param Conexion
@@ -77,19 +74,19 @@ public class AsignaturaController {
         Menu menu = new Menu();
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
         switch (menu.asignaturaOtions()) {
-        case 1:
-            crearAsignatura(conn, menu, asignaturaDAO);
-            break;
-        case 2:
-            borrarAsignatura(conn, menu, asignaturaDAO);
-            break;
-        case 3:
-            actualizarAsignatura(conn, menu, asignaturaDAO);
-            break;
-        default:
-            List<Asignatura> asignaturas = asignaturaDAO.getAll(conn);
-            menu.showAsignaturas(asignaturas);
-            break;
+            case 1:
+                crearAsignatura(conn, menu, asignaturaDAO);
+                break;
+            case 2:
+                borrarAsignatura(conn, menu, asignaturaDAO);
+                break;
+            case 3:
+                actualizarAsignatura(conn, menu, asignaturaDAO);
+                break;
+            default:
+                List<Asignatura> asignaturas = asignaturaDAO.getAll(conn);
+                menu.showAsignaturas(asignaturas);
+                break;
         }
     }
 }

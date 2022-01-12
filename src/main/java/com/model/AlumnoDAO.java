@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.asignatura.Asignatura;
 import com.view.Errores;
 
 public class AlumnoDAO implements DAO<Alumno> {
@@ -48,7 +49,7 @@ public class AlumnoDAO implements DAO<Alumno> {
                     "SELECT A.CODASIGN, A.NOMBRE, A.CURSO, M.ALUMNO FROM ASIGNATURA A INNER JOIN MATRICULA M ON M.ASIGNATURA = A.CODASIGN GROUP BY M.ALUMNO ORDER BY M.ALUMNO;");
             int idalumno = 0;
             while (rs.next()) {
-                while (idalumno < rs.getInt(4)-1)
+                while (idalumno < rs.getInt(4) - 1)
                     idalumno++;
                 int id = rs.getInt(1);
                 String nombre = rs.getString(2);
@@ -84,7 +85,7 @@ public class AlumnoDAO implements DAO<Alumno> {
      * @param conn
      * @param alumno
      */
-    public void update(Connection conn, Alumno alumno) {
+    public int update(Connection conn, Alumno alumno) {
         try (PreparedStatement s = conn.prepareStatement(
                 "UPDATE ALUMNO SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, FECHA = ? WHERE IDALUMNO = ?")) {
             s.setString(1, alumno.getDni());
@@ -93,22 +94,25 @@ public class AlumnoDAO implements DAO<Alumno> {
             s.setDate(4, Date.valueOf(alumno.getBirthDate()));
             s.setInt(5, alumno.getIdAlumno());
             s.executeUpdate();
+            return 0;
         } catch (SQLException e) {
             System.out.println(e.getSQLState());
+            return -1;
         }
     }
 
-    
-    /** 
+    /**
      * @param conn
      * @param alumno
      */
-    public void delete(Connection conn, Alumno alumno) {
+    public int delete(Connection conn, Alumno alumno) {
         try (PreparedStatement s = conn.prepareStatement("DELETE FROM ALUMNO WHERE IDALUMNO = ?")) {
             s.setInt(1, alumno.getIdAlumno());
             s.executeUpdate();
+            return 0;
         } catch (SQLException e) {
             Errores.sqlError(e);
+            return -1;
         }
     }
 }
