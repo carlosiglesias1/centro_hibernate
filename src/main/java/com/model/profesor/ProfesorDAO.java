@@ -7,6 +7,9 @@ import com.model.DAO;
 import org.hibernate.Session;
 
 public class ProfesorDAO implements DAO<Profesor> {
+    public ProfesorDAO{
+        
+    }
     @Override
     public void persist(Profesor item, Session session) {
         session.persist(item);
