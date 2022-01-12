@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 import com.model.Alumno;
 import com.model.Departamento;
-import com.model.Profesor;
 import com.model.asignatura.Asignatura;
+import com.model.profesor.Profesor;
 
 public class Menu {
     Scanner teclado;
