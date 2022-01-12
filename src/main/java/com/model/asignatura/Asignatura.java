@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,10 +13,11 @@ import javax.persistence.Table;
 @Table(name = "asignatura")
 public class Asignatura implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codAsignatura;
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "curso")
+    @Column(name = "CURSO")
     private String curso;
 
     public Asignatura(int code, String nombre, String curso) {
@@ -25,6 +28,11 @@ public class Asignatura implements Serializable {
 
     public Asignatura() {
 
+    }
+
+    public Asignatura(String nombre, String curso) {
+        this.nombre = nombre;
+        this.curso = curso;
     }
 
     /**

@@ -206,17 +206,17 @@ public class Menu {
         System.out.println("Escoje un curso: \n\t1.-ESO1\t4.-ESO4\n\t2.-ESO2\t5.-BAC1\n\t3.-ESO3\t6.-BAC2");
         switch (Integer.parseInt(teclado.nextLine())) {
             case 1:
-                return new Asignatura(-1, nombre, "ESO1");
+                return new Asignatura(nombre, "ESO1");
             case 2:
-                return new Asignatura(-1, nombre, "ESO2");
+                return new Asignatura(nombre, "ESO2");
             case 3:
-                return new Asignatura(-1, nombre, "ESO3");
+                return new Asignatura(nombre, "ESO3");
             case 4:
-                return new Asignatura(-1, nombre, "ESO4");
+                return new Asignatura(nombre, "ESO4");
             case 5:
-                return new Asignatura(-1, nombre, "BAC1");
+                return new Asignatura(nombre, "BAC1");
             default:
-                return new Asignatura(-1, nombre, "BAC2");
+                return new Asignatura(nombre, "BAC2");
         }
     }
 

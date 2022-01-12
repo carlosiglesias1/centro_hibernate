@@ -36,7 +36,7 @@ public class App {
                     AlumnoController.gestionarAlumnos(cnxn);
                     break;
                 case 2:
-                    AsignaturaController.gestionarAsignaturas(cnxn);
+                    AsignaturaController.gestionarAsignaturas();
                     break;
                 case 3:
                     DeptController.gestionarDepartamentos(cnxn);

@@ -8,5 +8,6 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.default_schema">proyecto</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping class="com.model.asignatura.Asignatura"/>
     </session-factory>
 </hibernate-configuration>

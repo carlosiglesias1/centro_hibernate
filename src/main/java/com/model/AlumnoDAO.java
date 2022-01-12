@@ -30,7 +30,7 @@ public class AlumnoDAO implements DAO<Alumno> {
      * @return List<Alumno>
      */
     @Override
-    public List<Alumno> getAll(Connection conn) {
+    public List<Alumno> findAll(Connection conn) {
         List<Alumno> lista = null;
         try (Statement s = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ResultSet rs = s.executeQuery("SELECT * FROM ALUMNO;");

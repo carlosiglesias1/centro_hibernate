@@ -32,17 +32,8 @@ public class AsignaturaController {
      * @param menu
      * @param asignaturaDAO
      */
-    static void borrarAsignatura(Connection conn, Menu menu, AsignaturaDAO asignaturaDAO) {
-        List<Asignatura> asignaturas = asignaturaDAO.getAll(conn);
-        try {
-            Asignatura materia = asignaturas.get(menu.selectAsignatura(asignaturas) - 1);
-            if (asignaturaDAO.delete(conn, materia) != -1) {
-                asignaturas = asignaturaDAO.getAll(conn);
-                menu.showAsignaturas(asignaturas);
-            }
-        } catch (IndexOutOfBoundsException ex) {
-            Errores.showError(Errores.ErrorTypes.LOSTMATERIA.ordinal());
-        }
+    static void borrarAsignatura(AsignaturaService asignaturaService, Menu menu) {
+        asignaturaService.delete(menu.selectAsignatura(asignaturaService.findAll()));
     }
 
     /**
@@ -52,14 +43,11 @@ public class AsignaturaController {
      * @param menu
      * @param asignaturaDAO
      */
-    static void actualizarAsignatura(Connection conn, Menu menu, AsignaturaDAO asignaturaDAO) {
-        List<Asignatura> asignaturas = asignaturaDAO.getAll(conn);
+    static void actualizarAsignatura(AsignaturaService asignaturaService, Menu menu) {
+        List<Asignatura> asignaturas = asignaturaService.findAll();
         try {
             Asignatura materia = asignaturas.get(menu.selectAsignatura(asignaturas) - 1);
-            if (asignaturaDAO.update(conn, materia) != -1) {
-                asignaturas = asignaturaDAO.getAll(conn);
-                menu.showAsignaturas(asignaturas);
-            }
+            asignaturaService.update(materia);
         } catch (IndexOutOfBoundsException ex) {
             Errores.showError(Errores.ErrorTypes.LOSTMATERIA.ordinal());
         }
@@ -70,21 +58,21 @@ public class AsignaturaController {
      * 
      * @param Conexion
      */
-    public static void gestionarAsignaturas(Connection conn) {
+    public static void gestionarAsignaturas() {
         Menu menu = new Menu();
-        AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
+        AsignaturaService asignaturaService = new AsignaturaService();
         switch (menu.asignaturaOtions()) {
             case 1:
-                crearAsignatura(conn, menu, asignaturaDAO);
+                crearAsignatura(asignaturaService, menu);
                 break;
             case 2:
-                borrarAsignatura(conn, menu, asignaturaDAO);
+                borrarAsignatura(asignaturaService, menu);
                 break;
             case 3:
-                actualizarAsignatura(conn, menu, asignaturaDAO);
+                actualizarAsignatura(asignaturaService, menu);
                 break;
             default:
-                List<Asignatura> asignaturas = asignaturaDAO.getAll(conn);
+                List<Asignatura> asignaturas = asignaturaService.findAll();
                 menu.showAsignaturas(asignaturas);
                 break;
         }

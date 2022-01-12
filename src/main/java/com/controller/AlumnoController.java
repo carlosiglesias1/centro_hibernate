@@ -13,6 +13,7 @@ import com.model.Profesor;
 import com.model.ProfesorDAO;
 import com.model.asignatura.Asignatura;
 import com.model.asignatura.AsignaturaDAO;
+import com.model.asignatura.AsignaturaService;
 import com.view.Errores;
 import com.view.Menu;
 
@@ -65,9 +66,8 @@ public class AlumnoController {
         alumnoDAO.update(conn, alumno);
     }
 
-    
-    /** 
-     * Inserta una matricula 
+    /**
+     * Inserta una matricula
      * 
      * @param Conexion
      * @param matriculas
@@ -114,13 +114,13 @@ public class AlumnoController {
             }
             insertMatricula(conn, matriculas, alumnos);
         } else {
-            AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
+            AsignaturaService asignaturaService = new AsignaturaService();
             ProfesorDAO profesorDAO = new ProfesorDAO();
             if (Errores.noAsignaturas(menu.getTeclado())) {
-                AsignaturaController.crearAsignatura(conn, menu, asignaturaDAO);
+                AsignaturaController.crearAsignatura(asignaturaService, menu);
                 if (Errores.noProfes(menu.getTeclado()))
                     ProfesorController.crearProfesor(conn, menu, profesorDAO);
-                matricularAlumno(conn, menu, alumnos, asignaturaDAO.getAll(conn), profesorDAO.getAll(conn));
+                matricularAlumno(conn, menu, alumnos, asignaturaService.findAll(), profesorDAO.getAll(conn));
             }
         }
     }
@@ -134,26 +134,26 @@ public class AlumnoController {
         Menu menu = new Menu();
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         switch (menu.alumnoOPtions()) {
-        case 1:
-            crearAlumno(conn, menu, alumnoDAO);
-            break;
-        case 2:
-            borrarAlumno(conn, menu, alumnoDAO);
-            break;
-        case 3:
-            actualizarAlumno(conn, menu, alumnoDAO, alumnoDAO.getAll(conn));
-            break;
-        case 4:
-            matricularAlumno(conn, menu, alumnoDAO.getAll(conn), new AsignaturaDAO().getAll(conn),
-                    new ProfesorDAO().getAll(conn));
-            break;
-        case 5:
-            int index = menu.selectAlumno(alumnoDAO.getAll(conn));
-            menu.showAsignaturasAlumno(alumnoDAO.getAll(conn).get(index-1));
-            break;
-        default:
-            menu.showAlumnos(alumnoDAO.getAll(conn));
-            break;
+            case 1:
+                crearAlumno(conn, menu, alumnoDAO);
+                break;
+            case 2:
+                borrarAlumno(conn, menu, alumnoDAO);
+                break;
+            case 3:
+                actualizarAlumno(conn, menu, alumnoDAO, alumnoDAO.getAll(conn));
+                break;
+            case 4:
+                matricularAlumno(conn, menu, alumnoDAO.getAll(conn), new AsignaturaService().findAll(),
+                        new ProfesorDAO().getAll(conn));
+                break;
+            case 5:
+                int index = menu.selectAlumno(alumnoDAO.getAll(conn));
+                menu.showAsignaturasAlumno(alumnoDAO.getAll(conn).get(index - 1));
+                break;
+            default:
+                menu.showAlumnos(alumnoDAO.getAll(conn));
+                break;
         }
     }
 }
