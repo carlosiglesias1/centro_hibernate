@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.model.Departamento;
 import com.model.DepartamentoDAO;
-import com.model.Profesor;
-import com.model.ProfesorDAO;
+import com.model.profesor.Profesor;
+import com.model.profesor.ProfesorDAO;
 import com.view.Menu;
 
 public class ProfesorController {

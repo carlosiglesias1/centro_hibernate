@@ -2,6 +2,8 @@ package com.model;
 
 import java.util.List;
 
+import com.model.profesor.Profesor;
+
 public class Departamento {
     private int code;
     private String nombre;

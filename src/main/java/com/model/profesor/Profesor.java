@@ -1,16 +1,38 @@
-package com.model;
+package com.model.profesor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Profesor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codProf;
+    @Column(name = "DNI")
     private String dni;
+    @Column(name = "NOMBRE")
     private String nombre;
+    @Column(name = "APELLIDOS")
     private String apellidos;
+    @Column(name = "DEPARTAMENTO")
+    private int departamento;
 
-    public Profesor(int codProf, String dni, String nombre, String apellidos) {
+    public Profesor(int codProf, String dni, String nombre, String apellidos, int departamento) {
         this.codProf = codProf;
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.departamento = departamento;
+    }
+
+    public Profesor(String dni, String nombre, String apellidos, int departamento) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.departamento = departamento;
     }
 
     public Profesor() {
@@ -77,6 +99,6 @@ public class Profesor {
      */
     @Override
     public String toString() {
-        return "\t|" + this.codProf + "\t|\t" + this.dni + "\t|\t" + this.nombre + "\t|\t" + this.apellidos + "\t|";
+        return "\t|" + this.codProf + "\t|\t" + this.dni + "\t|\t" + this.nombre + "\t|\t" + this.apellidos + "\t|\t";
     }
 }

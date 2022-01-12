@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.asignatura.Asignatura;
+import com.model.profesor.Profesor;
 
 public class MatriculaDAO implements DAO<Matricula> {
 

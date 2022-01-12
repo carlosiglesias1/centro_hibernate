@@ -9,11 +9,11 @@ import com.model.AlumnoDAO;
 import com.model.Alumno;
 import com.model.Matricula;
 import com.model.MatriculaDAO;
-import com.model.Profesor;
-import com.model.ProfesorDAO;
 import com.model.asignatura.Asignatura;
 import com.model.asignatura.AsignaturaDAO;
 import com.model.asignatura.AsignaturaService;
+import com.model.profesor.Profesor;
+import com.model.profesor.ProfesorDAO;
 import com.view.Errores;
 import com.view.Menu;
 

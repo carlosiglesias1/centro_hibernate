@@ -1,6 +1,7 @@
 package com.model;
 
 import com.model.asignatura.Asignatura;
+import com.model.profesor.Profesor;
 
 public class Matricula {
     private int id;
