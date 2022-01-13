@@ -9,5 +9,6 @@
         <property name="hibernate.default_schema">proyecto</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <mapping class="com.model.asignatura.Asignatura"/>
+        <mapping class="com.model.profesor.Profesor"/>
     </session-factory>
 </hibernate-configuration>

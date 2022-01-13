@@ -42,7 +42,7 @@ public class App {
                     DeptController.gestionarDepartamentos(cnxn);
                     break;
                 case 4:
-                    ProfesorController.gestionarProfesores(cnxn);
+                    ProfesorController.gestionarProfesores();
                     break;
                 default:
                     System.out.println("Fuck");
@@ -54,8 +54,6 @@ public class App {
 
     /**
      * Crea las tablas
-     * 
-     * @param Conexion
      */
     private static void createTables(Connection cnxn) {
         try {

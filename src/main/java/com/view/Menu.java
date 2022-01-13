@@ -133,7 +133,7 @@ public class Menu {
         String alumno = teclado.nextLine();
         if (alumno.isEmpty()) {
             return -1;
-        }else{
+        } else {
             return Integer.parseInt(alumno);
         }
     }
@@ -317,13 +317,14 @@ public class Menu {
     /**
      * Permite seleccionar el profesor
      * .
+     * 
      * @param List<Profesor>
      * @return int
      * @return posicion del elemento seleccionado
      */
-    public int selectProfesor(List<Profesor> profesors) {
+    public Profesor selectProfesor(List<Profesor> profesors) {
         showProfes(profesors);
         System.out.println("Selecciona un profesor");
-        return Integer.parseInt(teclado.nextLine());
+        return profesors.get(Integer.parseInt(teclado.nextLine()));
     }
 }

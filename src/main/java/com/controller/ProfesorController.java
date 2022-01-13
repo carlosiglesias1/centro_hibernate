@@ -1,12 +1,7 @@
 package com.controller;
 
-import java.sql.Connection;
-import java.util.List;
-
-import com.model.Departamento;
-import com.model.DepartamentoDAO;
 import com.model.profesor.Profesor;
-import com.model.profesor.ProfesorDAO;
+import com.model.profesor.ProfesorService;
 import com.view.Menu;
 
 public class ProfesorController {
@@ -14,39 +9,33 @@ public class ProfesorController {
         // Empty
     }
 
-    
-    /** 
+    /**
      * Crea un profesor
      * 
      * @param conn
      * @param menu
      * @param profesorDAO
      */
-    public static void crearProfesor(Connection conn, Menu menu, ProfesorDAO profesorDAO) {
+    public static void crearProfesor(ProfesorService profesorService, Menu menu) {
         Profesor profesor = menu.profesorFields();
-        if (profesorDAO.insert(conn, profesor) != -1) {
-            List<Profesor> profesors = profesorDAO.getAll(conn);
-            menu.showProfes(profesors);
-        }
+        profesorService.persist(profesor);
+        menu.showProfes(profesorService.findAll());
     }
 
-    
-    /** 
+    /**
      * Borra un profesor de la base de datos
      * 
      * @param conn
      * @param menu
      * @param profesorDAO
      */
-    public static void borrarProfesor(Connection conn, Menu menu, ProfesorDAO profesorDAO) {
-        int index = menu.selectProfesor(profesorDAO.getAll(conn));
-        if (profesorDAO.delete(conn, profesorDAO.getAll(conn).get(index)) != 1) {
-            menu.showProfes(profesorDAO.getAll(conn));
-        }
+    public static void borrarProfesor(ProfesorService profesorService, Menu menu) {
+        Profesor profesor = menu.selectProfesor(profesorService.findAll());
+        profesorService.delete(profesor);
+        menu.showProfes(profesorService.findAll());
     }
 
-    
-    /** 
+    /**
      * Edita el profesor seleccionado
      * 
      * @param conexion
@@ -54,56 +43,51 @@ public class ProfesorController {
      * @param profesorDAO
      * @param departamentoDAO
      */
-    public static void editarPorfesor(Connection conn, Menu menu, ProfesorDAO profesorDAO,
-            DepartamentoDAO departamentoDAO) {
-        int index = menu.selectProfesor(profesorDAO.getAll(conn));
-        Profesor profesor = menu.profesorFields();
-        profesor.setCodProf(index);
-        if (departamentoDAO.getAll(conn).isEmpty())
-            profesorDAO.update(conn, profesor, new Departamento());
-        else {
-            Departamento dept = departamentoDAO.getAll(conn).get(menu.selectDept(departamentoDAO.getAll(conn))-1);
-            profesorDAO.update(conn, profesor, dept);
-        }
+    public static void editarPorfesor(ProfesorService profesorService, Menu menu) {
+        Profesor profesor = menu.selectProfesor(profesorService.findAll());
+        Profesor newProfesor = menu.profesorFields();
+        profesor.setCodProf(profesor.getCodProf());
+        profesorService.update(newProfesor);
     }
 
-    
-    /** 
+    /**
      * Imprime las asignaturas de cada profesor
      * 
      * @param conn
      * @param menu
      * @param profesorDAO
      */
-    public static void verAsignaturasProfesor(Connection conn, Menu menu, ProfesorDAO profesorDAO) {
-        menu.showAsignaturas(profesorDAO.getSubjects(conn,
-                profesorDAO.getAll(conn).get(menu.selectProfesor(profesorDAO.getAll(conn)) - 1)));
-    }
+    /*
+     * public static void verAsignaturasProfesor(Connection conn, Menu menu,
+     * ProfesorDAO profesorDAO) {
+     * menu.showAsignaturas(profesorDAO.getSubjects(conn,
+     * profesorDAO.getAll(conn).get(menu.selectProfesor(profesorDAO.getAll(conn)) -
+     * 1)));
+     * }
+     */
 
     /**
      * Gestiona todas las interacciones con la tabla de profesores
-     * 
-     * @param conn
      */
-    public static void gestionarProfesores(Connection conn) {
+    public static void gestionarProfesores() {
         Menu menu = new Menu();
-        ProfesorDAO profesorDAO = new ProfesorDAO();
+        ProfesorService profesorService = new ProfesorService();
         switch (menu.profesorOptions()) {
-        case 1:
-            crearProfesor(conn, menu, profesorDAO);
-            break;
-        case 2:
-            borrarProfesor(conn, menu, profesorDAO);
-            break;
-        case 3:
-            editarPorfesor(conn, menu, profesorDAO, new DepartamentoDAO());
-            break;
-        case 4:
-            verAsignaturasProfesor(conn, menu, profesorDAO);
-            break;
-        default:
-            menu.showProfes(profesorDAO.getAll(conn));
-            break;
+            case 1:
+                crearProfesor(profesorService, menu);
+                break;
+            case 2:
+                borrarProfesor(profesorService, menu);
+                break;
+            case 3:
+                editarPorfesor(profesorService, menu);
+                break;
+            case 4:
+                // verAsignaturasProfesor(conn, menu);
+                // break;
+            default:
+                menu.showProfes(profesorService.findAll());
+                break;
         }
     }
 }

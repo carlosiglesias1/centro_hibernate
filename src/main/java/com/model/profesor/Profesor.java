@@ -66,6 +66,10 @@ public class Profesor {
         return apellidos;
     }
 
+    public int getDepartamento() {
+        return departamento;
+    }
+
     /**
      * @param codProf
      */
@@ -92,6 +96,10 @@ public class Profesor {
      */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+
+    public void setDepartamento(int departamento) {
+        this.departamento = departamento;
     }
 
     /**

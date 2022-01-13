@@ -7,9 +7,10 @@ import com.model.DAO;
 import org.hibernate.Session;
 
 public class ProfesorDAO implements DAO<Profesor> {
-    public ProfesorDAO{
-        
+    public ProfesorDAO() {
+        // empty
     }
+
     @Override
     public void persist(Profesor item, Session session) {
         session.persist(item);
@@ -36,7 +37,8 @@ public class ProfesorDAO implements DAO<Profesor> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Profesor> findAll(Session session) {
-        return (List<Profesor>) session.createQuery("FROM asignatura").list();
+        return  session.createQuery("FROM profesor").list();
     }
 }
