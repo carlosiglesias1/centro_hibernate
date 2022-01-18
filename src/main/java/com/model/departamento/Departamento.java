@@ -1,76 +1,57 @@
-package com.model;
+package com.model.departamento;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import com.model.profesor.Profesor;
-
+@Entity
+@Table(name = "dept")
 public class Departamento {
+    @Id
+    @Column(name = "CODDEPT")
     private int code;
+    @Column(name = "NOMBRE")
     private String nombre;
-    private List<Profesor> profesors;
 
-    public Departamento(int code, String nombre, List<Profesor> profesors) {
+    public Departamento(int code, String nombre) {
         this.code = code;
         this.nombre = nombre;
-        this.profesors = profesors;
     }
 
     public Departamento() {
-        this.code = -1;
-        this.nombre = null;
-        this.profesors = null;
+        // default constructor
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getCode() {
         return code;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getNombre() {
         return nombre;
     }
 
-    
-    /** 
-     * @return List<Profesor>
-     */
-    public List<Profesor> getProfesors() {
-        return profesors;
-    }
-
-    
-    /** 
+    /**
      * @param code
      */
     public void setCode(int code) {
         this.code = code;
     }
 
-    
-    /** 
+    /**
      * @param nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    
-    /** 
-     * @param profesors
-     */
-    public void setProfesors(List<Profesor> profesors) {
-        this.profesors = profesors;
-    }
-
-    
-    /** 
+    /**
      * @return String
      */
     @Override

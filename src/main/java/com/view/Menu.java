@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.model.Departamento;
 import com.model.alumno.Alumno;
 import com.model.asignatura.Asignatura;
+import com.model.departamento.Departamento;
 import com.model.profesor.Profesor;
 
 public class Menu {

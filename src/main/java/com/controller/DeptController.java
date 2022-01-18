@@ -3,8 +3,8 @@ package com.controller;
 import java.sql.Connection;
 import java.util.List;
 
-import com.model.Departamento;
-import com.model.DepartamentoDAO;
+import com.model.departamento.Departamento;
+import com.model.departamento.DepartamentoDAO;
 import com.view.Menu;
 
 public class DeptController {
