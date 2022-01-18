@@ -10,6 +10,7 @@ import javax.persistence.Id;
 public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CODPROF")
     private int codProf;
     @Column(name = "DNI")
     private String dni;

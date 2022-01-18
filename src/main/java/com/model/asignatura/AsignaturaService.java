@@ -33,10 +33,9 @@ public class AsignaturaService {
         return asignatura;
     }
 
-    public void delete(int id) {
+    public void delete(Asignatura item) {
         this.sessionFactory.openCurrentSessionwithTransaction();
-        Asignatura asignatura = this.asignaturaDAO.findById(id, sessionFactory.getCurrentSession());
-        this.asignaturaDAO.delete(asignatura, sessionFactory.getCurrentSession());
+        this.asignaturaDAO.delete(item, sessionFactory.getCurrentSession());
         this.sessionFactory.closeCurrentSessionwithTransaction();
     }
 

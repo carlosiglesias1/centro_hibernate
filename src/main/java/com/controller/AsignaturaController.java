@@ -1,10 +1,8 @@
 package com.controller;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.model.asignatura.Asignatura;
-import com.model.asignatura.AsignaturaDAO;
 import com.model.asignatura.AsignaturaService;
 import com.view.Errores;
 import com.view.Menu;
@@ -46,7 +44,7 @@ public class AsignaturaController {
     static void actualizarAsignatura(AsignaturaService asignaturaService, Menu menu) {
         List<Asignatura> asignaturas = asignaturaService.findAll();
         try {
-            Asignatura materia = asignaturas.get(menu.selectAsignatura(asignaturas) - 1);
+            Asignatura materia = menu.selectAsignatura(asignaturas);
             asignaturaService.update(materia);
         } catch (IndexOutOfBoundsException ex) {
             Errores.showError(Errores.ErrorTypes.LOSTMATERIA.ordinal());

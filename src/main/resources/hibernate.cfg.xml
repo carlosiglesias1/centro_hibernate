@@ -8,7 +8,9 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.default_schema">proyecto</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <mapping class="com.model.asignatura.Asignatura"/>
-        <mapping class="com.model.profesor.Profesor"/>
+        <mapping class="com.model.asignatura.Asignatura" />
+        <mapping class="com.model.profesor.Profesor" />
+        <mapping class="com.model.matricula.Matricula" />
+        <mapping class="com.model.alumno.Alumno" />
     </session-factory>
 </hibernate-configuration>

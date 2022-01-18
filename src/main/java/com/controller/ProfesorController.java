@@ -46,17 +46,10 @@ public class ProfesorController {
     public static void editarPorfesor(ProfesorService profesorService, Menu menu) {
         Profesor profesor = menu.selectProfesor(profesorService.findAll());
         Profesor newProfesor = menu.profesorFields();
-        profesor.setCodProf(profesor.getCodProf());
+        newProfesor.setCodProf(profesor.getCodProf());
         profesorService.update(newProfesor);
     }
 
-    /**
-     * Imprime las asignaturas de cada profesor
-     * 
-     * @param conn
-     * @param menu
-     * @param profesorDAO
-     */
     /*
      * public static void verAsignaturasProfesor(Connection conn, Menu menu,
      * ProfesorDAO profesorDAO) {

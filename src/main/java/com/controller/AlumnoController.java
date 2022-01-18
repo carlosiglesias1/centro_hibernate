@@ -1,19 +1,16 @@
 package com.controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.model.AlumnoDAO;
-import com.model.Alumno;
-import com.model.Matricula;
-import com.model.MatriculaDAO;
+import com.model.matricula.Matricula;
+import com.model.matricula.MatriculaService;
+import com.model.alumno.Alumno;
+import com.model.alumno.AlumnoService;
 import com.model.asignatura.Asignatura;
-import com.model.asignatura.AsignaturaDAO;
 import com.model.asignatura.AsignaturaService;
 import com.model.profesor.Profesor;
-import com.model.profesor.ProfesorDAO;
+import com.model.profesor.ProfesorService;
 import com.view.Errores;
 import com.view.Menu;
 
@@ -22,32 +19,16 @@ public class AlumnoController {
         // Empty
     }
 
-    /**
-     * Llama al método insert del DAO para generar un nuevo alumno
-     * 
-     * @param conn
-     * @param menu
-     * @param alumnoDAO
-     */
-    private static void crearAlumno(Connection conn, Menu menu, AlumnoDAO alumnoDAO) {
+    private static void crearAlumno(AlumnoService alumnoService, Menu menu) {
         Alumno newAlumno = menu.inputAlumnoFields();
-        if (alumnoDAO.insert(conn, newAlumno) != -1) {
-            List<Alumno> alumnos = alumnoDAO.getAll(conn);
-            menu.showAlumnos(alumnos);
-        }
+        alumnoService.persist(newAlumno);
+        menu.showAlumnos(alumnoService.findAll());
     }
 
-    /**
-     * Llama al método delete del DAO para borrar un alumno
-     * 
-     * @param conn
-     * @param menu
-     * @param alumnoDAO
-     */
-    private static void borrarAlumno(Connection conn, Menu menu, AlumnoDAO alumnoDAO) {
-        List<Alumno> alumnos = alumnoDAO.getAll(conn);
-        int index = menu.selectAlumno(alumnos);
-        alumnoDAO.delete(conn, alumnos.get(index));
+    private static void borrarAlumno(AlumnoService alumnoService, Menu menu) {
+        Alumno alumno = menu.selectAlumno(alumnoService.findAll());
+        alumnoService.delete(alumno);
+        menu.showAlumnos(alumnoService.findAll());
     }
 
     /**
@@ -59,11 +40,10 @@ public class AlumnoController {
      * @param alumnoDAO
      * @param alumnos
      */
-    private static void actualizarAlumno(Connection conn, Menu menu, AlumnoDAO alumnoDAO, List<Alumno> alumnos) {
-        int index = menu.selectAlumno(alumnos);
-        Alumno alumno = menu.inputAlumnoFields();
-        alumno.setIdAlumno(index);
-        alumnoDAO.update(conn, alumno);
+    private static void actualizarAlumno(AlumnoService alumnoService, Menu menu) {
+        Alumno selected = menu.selectAlumno(alumnoService.findAll());
+        alumnoService.update(selected);
+        menu.showAlumnos(alumnoService.findAll());
     }
 
     /**
@@ -73,22 +53,9 @@ public class AlumnoController {
      * @param matriculas
      * @param alumnos
      */
-    private static void insertMatricula(Connection conn, Matricula[] matriculas, List<Alumno> alumnos) {
-        try {
-            conn.setAutoCommit(false);
-            int[] result = new MatriculaDAO().insert(conn, matriculas);
-            for (int i = 0; i < result.length; i++) {
-                if (result[i] == Statement.EXECUTE_FAILED) {
-                    Errores.showError(Errores.ErrorTypes.DEFAULT.ordinal());
-                    conn.rollback();
-                    break;
-                }
-                conn.commit();
-                conn.setAutoCommit(true);
-                alumnos.get(i).getAsignaturas().add(matriculas[i].getAsignatura());
-            }
-        } catch (SQLException e) {
-            Errores.sqlError(e);
+    private static void insertMatricula(MatriculaService matriculaService, Matricula[] matriculas) {
+        for (Matricula matricula : matriculas) {
+            matriculaService.persist(matricula);
         }
     }
 
@@ -102,27 +69,40 @@ public class AlumnoController {
      * @param alumnos
      * @param asignaturas
      */
-    private static void matricularAlumno(Connection conn, Menu menu, List<Alumno> alumnos, List<Asignatura> asignaturas,
-            List<Profesor> profesors) {
-        int index = menu.selectAlumno(alumnos);
-        if (!asignaturas.isEmpty() && !profesors.isEmpty()) {
+    private static void matricularAlumno(AlumnoService alumnoService, Menu menu) {
+        Alumno alumno = menu.selectAlumno(alumnoService.findAll());
+        List<Asignatura> asignaturas = new AsignaturaService().findAll();
+        List<Profesor> profesors = new ProfesorService().findAll();
+        if (!(asignaturas.isEmpty() || profesors.isEmpty())) {
             Matricula[] matriculas = new Matricula[menu.setNumMatriculas()];
             for (int i = 0; i < matriculas.length; i++) {
-                int index2 = menu.selectAsignatura(asignaturas);
-                matriculas[i] = new Matricula(-1, alumnos.get(index - 1), asignaturas.get(index2 - 1),
-                        profesors.get(menu.selectProfesor(profesors) - 1));
+                Asignatura asignatura = menu.selectAsignatura(asignaturas);
+                Profesor profesor = menu.selectProfesor(profesors);
+                matriculas[i] = new Matricula(alumno.getIdAlumno(), asignatura.getCodAsignatura(),
+                        profesor.getCodProf());
             }
-            insertMatricula(conn, matriculas, alumnos);
+            insertMatricula(new MatriculaService(), matriculas);
         } else {
             AsignaturaService asignaturaService = new AsignaturaService();
-            ProfesorDAO profesorDAO = new ProfesorDAO();
             if (Errores.noAsignaturas(menu.getTeclado())) {
                 AsignaturaController.crearAsignatura(asignaturaService, menu);
                 if (Errores.noProfes(menu.getTeclado()))
-                    ProfesorController.crearProfesor(conn, menu, profesorDAO);
-                matricularAlumno(conn, menu, alumnos, asignaturaService.findAll(), profesorDAO.getAll(conn));
+                    ProfesorController.crearProfesor(new ProfesorService(), menu);
+                matricularAlumno(alumnoService, menu);
             }
         }
+    }
+
+    private static List<Asignatura> getAsignaturas(Alumno alumno){
+        AsignaturaService asignaturaService = new AsignaturaService();
+        MatriculaService matriculaService = new MatriculaService();
+        List<Asignatura> asignaturasAlumno = new ArrayList<>();
+        for (Matricula matricula : matriculaService.findAll()) {
+            if (matricula.getIdAlumno() == alumno.getIdAlumno()) {
+                asignaturasAlumno.add(asignaturaService.findById(matricula.getIdAsignatura()));
+            }
+        }
+        return asignaturasAlumno;
     }
 
     /**
@@ -130,29 +110,28 @@ public class AlumnoController {
      * 
      * @param Conexion
      */
-    public static void gestionarAlumnos(Connection conn) {
+    public static void gestionarAlumnos() {
         Menu menu = new Menu();
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
+        AlumnoService alumnoService = new AlumnoService();
         switch (menu.alumnoOPtions()) {
             case 1:
-                crearAlumno(conn, menu, alumnoDAO);
+                crearAlumno(alumnoService, menu);
                 break;
             case 2:
-                borrarAlumno(conn, menu, alumnoDAO);
+                borrarAlumno(alumnoService, menu);
                 break;
             case 3:
-                actualizarAlumno(conn, menu, alumnoDAO, alumnoDAO.getAll(conn));
+                actualizarAlumno(alumnoService, menu);
                 break;
             case 4:
-                matricularAlumno(conn, menu, alumnoDAO.getAll(conn), new AsignaturaService().findAll(),
-                        new ProfesorDAO().getAll(conn));
+                matricularAlumno(alumnoService, menu);
                 break;
             case 5:
-                int index = menu.selectAlumno(alumnoDAO.getAll(conn));
-                menu.showAsignaturasAlumno(alumnoDAO.getAll(conn).get(index - 1));
+                Alumno alumno = menu.selectAlumno(alumnoService.findAll());
+                menu.showAsignaturasAlumno(getAsignaturas(alumno));
                 break;
             default:
-                menu.showAlumnos(alumnoDAO.getAll(conn));
+                menu.showAlumnos(alumnoService.findAll());
                 break;
         }
     }

@@ -1,4 +1,4 @@
-package com.model;
+package com.model.alumno;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,24 +15,21 @@ import com.model.asignatura.Asignatura;
 public class Alumno {
     @Id
     private int idAlumno;
-    @Column (name = "dni")
+    @Column(name = "dni")
     private String dni;
-    @Column (name = "nombre")
+    @Column(name = "nombre")
     private String nombre;
-    @Column (name = "apellidos")
+    @Column(name = "apellidos")
     private String apellidos;
-    @Column (name = "fecha")
+    @Column(name = "fecha")
     private LocalDate birthDate;
-    private List<Asignatura> asignaturas;
 
-    public Alumno(int idAlumno, String dni, String nombre, String apellidos, LocalDate nacimiento,
-            List<Asignatura> asignaturas) {
+    public Alumno(int idAlumno, String dni, String nombre, String apellidos, LocalDate nacimiento) {
         this.idAlumno = idAlumno;
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.birthDate = nacimiento;
-        this.asignaturas = asignaturas;
     }
 
     public Alumno() {
@@ -74,13 +71,6 @@ public class Alumno {
     }
 
     /**
-     * @return List<Asignatura>
-     */
-    public List<Asignatura> getAsignaturas() {
-        return asignaturas;
-    }
-
-    /**
      * @param idAlumno
      */
     public void setIdAlumno(int idAlumno) {
@@ -113,13 +103,6 @@ public class Alumno {
      */
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    /**
-     * @param asignaturas
-     */
-    public void setAsignaturas(List<Asignatura> asignaturas) {
-        this.asignaturas = asignaturas;
     }
 
     /**

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 public class Asignatura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CODASIGN")
     private int codAsignatura;
     @Column(name = "NOMBRE")
     private String nombre;

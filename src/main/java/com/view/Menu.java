@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.model.Alumno;
 import com.model.Departamento;
+import com.model.alumno.Alumno;
 import com.model.asignatura.Asignatura;
 import com.model.profesor.Profesor;
 
@@ -127,14 +127,14 @@ public class Menu {
      * @param alumnos
      * @return int
      */
-    public int selectAlumno(List<Alumno> alumnos) {
+    public Alumno selectAlumno(List<Alumno> alumnos) {
         this.showAlumnos(alumnos);
         System.out.println("Introduce el ID del alumno");
         String alumno = teclado.nextLine();
         if (alumno.isEmpty()) {
-            return -1;
+            return new Alumno();
         } else {
-            return Integer.parseInt(alumno);
+            return alumnos.get(Integer.parseInt(alumno) - 1);
         }
     }
 
@@ -157,8 +157,8 @@ public class Menu {
      * 
      * @param alumno
      */
-    public void showAsignaturasAlumno(Alumno alumno) {
-        for (Asignatura asignatura : alumno.getAsignaturas()) {
+    public void showAsignaturasAlumno(List<Asignatura> asignaturas) {
+        for (Asignatura asignatura : asignaturas) {
             System.out.println(asignatura.toString());
         }
     }
@@ -226,10 +226,16 @@ public class Menu {
      * @param asignaturas
      * @return posicion de la asignatura seleccionada
      */
-    public int selectAsignatura(List<Asignatura> asignaturas) {
+    public Asignatura selectAsignatura(List<Asignatura> asignaturas) {
         this.showAsignaturas(asignaturas);
         System.out.println("Introduce una asignatura: ");
-        return Integer.parseInt(teclado.nextLine());
+        int idAsignatura = Integer.parseInt(teclado.nextLine());
+        for (Asignatura asignatura : asignaturas) {
+            if (asignatura.getCodAsignatura() == idAsignatura) {
+                return asignatura;
+            }
+        }
+        return null;
     }
 
     /**
@@ -325,6 +331,6 @@ public class Menu {
     public Profesor selectProfesor(List<Profesor> profesors) {
         showProfes(profesors);
         System.out.println("Selecciona un profesor");
-        return profesors.get(Integer.parseInt(teclado.nextLine()));
+        return profesors.get(Integer.parseInt(teclado.nextLine()) - 1);
     }
 }

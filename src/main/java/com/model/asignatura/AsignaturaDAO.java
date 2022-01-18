@@ -34,6 +34,6 @@ public class AsignaturaDAO implements DAO<Asignatura> {
 
     @Override
     public List<Asignatura> findAll(Session session) {
-        return (List<Asignatura>) session.createQuery("FROM asignatura").list();
+        return (List<Asignatura>) session.createQuery("FROM Asignatura").list();
     }
 }

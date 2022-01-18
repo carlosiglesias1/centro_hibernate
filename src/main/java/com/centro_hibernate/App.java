@@ -33,7 +33,7 @@ public class App {
             ResultSet rs = st.executeQuery(sql);
             switch (menu.selectTable(rs)) {
                 case 1:
-                    AlumnoController.gestionarAlumnos(cnxn);
+                    AlumnoController.gestionarAlumnos();
                     break;
                 case 2:
                     AsignaturaController.gestionarAsignaturas();
