@@ -20,7 +20,6 @@ public class Alumno {
     private String apellidos;
     @Column(name = "fecha")
     private LocalDate birthDate;
-
     public Alumno(int idAlumno, String dni, String nombre, String apellidos, LocalDate nacimiento) {
         this.idAlumno = idAlumno;
         this.dni = dni;

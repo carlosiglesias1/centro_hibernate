@@ -3,7 +3,6 @@ package com.view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -256,7 +255,7 @@ public class Menu {
      */
     public Departamento inputDepartamento() {
         System.out.println("Introduce el nombre");
-        return new Departamento(-1, teclado.nextLine(), new ArrayList<>());
+        return new Departamento(-1, teclado.nextLine());
     }
 
     /**

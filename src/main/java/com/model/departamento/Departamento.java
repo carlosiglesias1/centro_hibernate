@@ -13,7 +13,7 @@ public class Departamento {
     private int code;
     @Column(name = "NOMBRE")
     private String nombre;
-
+    
     public Departamento(int code, String nombre) {
         this.code = code;
         this.nombre = nombre;
