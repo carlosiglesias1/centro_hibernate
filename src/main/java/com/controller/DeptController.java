@@ -1,10 +1,7 @@
 package com.controller;
 
-import java.sql.Connection;
-import java.util.List;
-
 import com.model.departamento.Departamento;
-import com.model.departamento.DepartamentoDAO;
+import com.model.departamento.DepartamentoService;
 import com.view.Menu;
 
 public class DeptController {
@@ -14,32 +11,24 @@ public class DeptController {
     /**
      * @param conn
      */
-    public static void gestionarDepartamentos(Connection conn) {
+    public static void gestionarDepartamentos() {
         Menu menu = new Menu();
-        DepartamentoDAO departamentoDAO = new DepartamentoDAO();
-        List<Departamento> depts;
+        DepartamentoService departamentoService = new DepartamentoService();
         switch (menu.departamentoOptions()) {
         case 1:
             Departamento dept = menu.inputDepartamento();
-            if (departamentoDAO.insert(conn, dept) != -1) {
-                depts = departamentoDAO.getAll(conn);
-                menu.insertSuccess();
-                menu.showDepts(depts);
-            }
+            departamentoService.persist(dept);
             break;
         case 2:
-            depts = departamentoDAO.getAll(conn);
-            Departamento departamento = depts.get(menu.selectDept(depts) - 1);
-            departamentoDAO.delete(conn, departamento);
+            Departamento departamento = menu.selectDept(departamentoService.findAll());
+            departamentoService.delete(departamento);
             break;
         case 3:
-            depts = departamentoDAO.getAll(conn);
-            Departamento selectedDept = depts.get(menu.selectDept(depts) - 1);
-            menu.showProfes(selectedDept.getProfesors());
+            Departamento selectedDept = menu.selectDept(departamentoService.findAll());
+            menu.showProfes(selectedDept.getProfesores());
             break;
         default:
-            depts = departamentoDAO.getAll(conn);
-            menu.showDepts(depts);
+            menu.showDepts(departamentoService.findAll());
             break;
         }
     }

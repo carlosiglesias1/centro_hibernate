@@ -1,9 +1,18 @@
 package com.model.departamento;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.model.profesor.Profesor;
 
 @Entity
 @Table(name = "dept")
@@ -13,10 +22,19 @@ public class Departamento {
     private int code;
     @Column(name = "NOMBRE")
     private String nombre;
-    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEPARTAMENTO")
+    private List<Profesor> profesores;
+
     public Departamento(int code, String nombre) {
         this.code = code;
         this.nombre = nombre;
+        this.profesores = new ArrayList<>();
+    }
+
+    public Departamento(String nombre){
+        this.nombre = nombre;
+        this.profesores = new ArrayList<>();
     }
 
     public Departamento() {
@@ -37,6 +55,10 @@ public class Departamento {
         return nombre;
     }
 
+    public List<Profesor> getProfesores() {
+        return profesores;
+    }
+
     /**
      * @param code
      */
@@ -49,6 +71,10 @@ public class Departamento {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setProfesores(List<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
     /**

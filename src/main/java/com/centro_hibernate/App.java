@@ -39,7 +39,7 @@ public class App {
                     AsignaturaController.gestionarAsignaturas();
                     break;
                 case 3:
-                    DeptController.gestionarDepartamentos(cnxn);
+                    DeptController.gestionarDepartamentos();
                     break;
                 case 4:
                     ProfesorController.gestionarProfesores();

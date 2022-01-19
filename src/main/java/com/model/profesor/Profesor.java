@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Profesor {
@@ -18,7 +20,7 @@ public class Profesor {
     private String nombre;
     @Column(name = "APELLIDOS")
     private String apellidos;
-    @Column(name = "DEPARTAMENTO")
+    @JoinColumn(name = "DEPARTAMENTO")
     private int departamento;
 
     public Profesor(int codProf, String dni, String nombre, String apellidos, int departamento) {

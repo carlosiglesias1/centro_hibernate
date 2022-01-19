@@ -255,7 +255,7 @@ public class Menu {
      */
     public Departamento inputDepartamento() {
         System.out.println("Introduce el nombre");
-        return new Departamento(-1, teclado.nextLine());
+        return new Departamento(teclado.nextLine());
     }
 
     /**
@@ -275,10 +275,16 @@ public class Menu {
      * @param Lista de departamentos
      * @return posicion del departamento seleccionado
      */
-    public int selectDept(List<Departamento> depts) {
+    public Departamento selectDept(List<Departamento> depts) {
         this.showDepts(depts);
         System.out.println("Selecciona un departamento");
-        return Integer.parseInt(teclado.nextLine());
+        int selected = Integer.parseInt(teclado.nextLine());
+        for (Departamento departamento : depts) {
+            if (departamento.getCode() == selected) {
+                return departamento;
+            }
+        }
+        return null;
     }
 
     /**
@@ -308,6 +314,18 @@ public class Menu {
      * 
      * @return Profesor con los campos rellenados (todos menos el id)
      */
+    public Profesor profesorFields(List<Departamento> depts) {
+        Profesor profesor = new Profesor();
+        System.out.println("Introduce el dni");
+        profesor.setDni(teclado.nextLine());
+        System.out.println("Introduce el nombre");
+        profesor.setNombre(teclado.nextLine());
+        System.out.println("Introduce los apellidos");
+        profesor.setApellidos(teclado.nextLine());
+        profesor.setDepartamento(selectDept(depts).getCode());
+        return profesor;
+    }
+
     public Profesor profesorFields() {
         Profesor profesor = new Profesor();
         System.out.println("Introduce el dni");

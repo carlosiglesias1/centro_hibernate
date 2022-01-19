@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.util.List;
+
+import com.model.departamento.Departamento;
+import com.model.departamento.DepartamentoService;
 import com.model.profesor.Profesor;
 import com.model.profesor.ProfesorService;
 import com.view.Menu;
@@ -17,7 +21,13 @@ public class ProfesorController {
      * @param profesorDAO
      */
     public static void crearProfesor(ProfesorService profesorService, Menu menu) {
-        Profesor profesor = menu.profesorFields();
+        List<Departamento> depts = new DepartamentoService().findAll();
+        Profesor profesor;
+        if (!depts.isEmpty()) {
+            profesor = menu.profesorFields(depts);
+        } else {
+            profesor = menu.profesorFields();
+        }
         profesorService.persist(profesor);
         menu.showProfes(profesorService.findAll());
     }
@@ -45,7 +55,14 @@ public class ProfesorController {
      */
     public static void editarPorfesor(ProfesorService profesorService, Menu menu) {
         Profesor profesor = menu.selectProfesor(profesorService.findAll());
-        Profesor newProfesor = menu.profesorFields();
+        List<Departamento> depts = new DepartamentoService().findAll();
+        Profesor newProfesor;
+        if (!depts.isEmpty()) {
+            newProfesor = menu.profesorFields(depts);
+            depts.get(newProfesor.getDepartamento()).getProfesores().add(newProfesor);
+        } else {
+            newProfesor = menu.profesorFields();
+        }
         newProfesor.setCodProf(profesor.getCodProf());
         profesorService.update(newProfesor);
     }
