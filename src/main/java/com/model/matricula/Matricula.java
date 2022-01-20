@@ -35,34 +35,66 @@ public class Matricula {
         this.idProfesor = idProfesor;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIdAlumno() {
         return idAlumno;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIdAsignatura() {
         return idAsignatura;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIdMatricula() {
         return idMatricula;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIdProfesor() {
         return idProfesor;
     }
 
+    
+    /** 
+     * @param idAlumno
+     */
     public void setIdAlumno(int idAlumno) {
         this.idAlumno = idAlumno;
     }
 
+    
+    /** 
+     * @param idAsignatura
+     */
     public void setIdAsignatura(int idAsignatura) {
         this.idAsignatura = idAsignatura;
     }
 
+    
+    /** 
+     * @param idMatricula
+     */
     public void setIdMatricula(int idMatricula) {
         this.idMatricula = idMatricula;
     }
 
+    
+    /** 
+     * @param idProfesor
+     */
     public void setIdProfesor(int idProfesor) {
         this.idProfesor = idProfesor;
     }

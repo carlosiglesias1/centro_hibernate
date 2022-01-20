@@ -13,18 +13,31 @@ public class ProfesorService {
         this.sesionFactory = SesionFactory.getSesionFactory();
     }
 
+    
+    /** 
+     * @param entity
+     */
     public void persist(Profesor entity) {
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.profesorDAO.persist(entity, this.sesionFactory.getCurrentSession());
         this.sesionFactory.closeCurrentSessionwithTransaction();
     }
 
+    
+    /** 
+     * @param item
+     */
     public void update(Profesor item) {
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.profesorDAO.update(item, sesionFactory.getCurrentSession());
         this.sesionFactory.closeCurrentSessionwithTransaction();
     }
 
+    
+    /** 
+     * @param id
+     * @return Profesor
+     */
     public Profesor findById(int id) {
         this.sesionFactory.openCurrentSession();
         Profesor profesor = this.profesorDAO.findById(id, sesionFactory.getCurrentSession());
@@ -32,6 +45,10 @@ public class ProfesorService {
         return profesor;
     }
 
+    
+    /** 
+     * @return List<Profesor>
+     */
     public List<Profesor> findAll() {
         this.sesionFactory.openCurrentSession();
         List<Profesor> profesores = this.profesorDAO.findAll(this.sesionFactory.getCurrentSession());
@@ -39,6 +56,10 @@ public class ProfesorService {
         return profesores;
     }
 
+    
+    /** 
+     * @param profesor
+     */
     public void delete(Profesor profesor) {
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.profesorDAO.delete(profesor, this.sesionFactory.getCurrentSession());

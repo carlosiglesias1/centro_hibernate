@@ -19,12 +19,22 @@ public class AlumnoController {
         // Empty
     }
 
+    
+    /** 
+     * @param alumnoService
+     * @param menu
+     */
     private static void crearAlumno(AlumnoService alumnoService, Menu menu) {
         Alumno newAlumno = menu.inputAlumnoFields();
         alumnoService.persist(newAlumno);
         menu.showAlumnos(alumnoService.findAll());
     }
 
+    
+    /** 
+     * @param alumnoService
+     * @param menu
+     */
     private static void borrarAlumno(AlumnoService alumnoService, Menu menu) {
         Alumno alumno = menu.selectAlumno(alumnoService.findAll());
         alumnoService.delete(alumno);
@@ -93,6 +103,11 @@ public class AlumnoController {
         }
     }
 
+    
+    /** 
+     * @param alumno
+     * @return List<Asignatura>
+     */
     private static List<Asignatura> getAsignaturas(Alumno alumno){
         AsignaturaService asignaturaService = new AsignaturaService();
         MatriculaService matriculaService = new MatriculaService();

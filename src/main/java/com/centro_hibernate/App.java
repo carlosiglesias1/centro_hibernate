@@ -54,6 +54,7 @@ public class App {
 
     /**
      * Crea las tablas
+     * @param Connection conexion a la bd
      */
     private static void createTables(Connection cnxn) {
         try {

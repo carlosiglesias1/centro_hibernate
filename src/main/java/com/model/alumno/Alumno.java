@@ -10,6 +10,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "alumno")
 public class Alumno {
+    /**
+     *
+     */
+    private static final String TABS = "\t|\t";
     @Id
     private int idAlumno;
     @Column(name = "dni")
@@ -106,7 +110,7 @@ public class Alumno {
      */
     @Override
     public String toString() {
-        return this.idAlumno + "\t|\t" + this.dni + "\t|\t" + this.nombre + "\t|\t" + this.apellidos + "\t|\t"
+        return this.idAlumno + TABS + this.dni + TABS + this.nombre + TABS + this.apellidos + TABS
                 + this.birthDate;
     }
 }

@@ -330,6 +330,10 @@ public class Menu {
         return profesor;
     }
 
+    
+    /** 
+     * @return Profesor
+     */
     public Profesor profesorFields() {
         Profesor profesor = new Profesor();
         System.out.println("Introduce el dni");

@@ -55,6 +55,10 @@ public class Departamento {
         return nombre;
     }
 
+    
+    /** 
+     * @return List<Profesor>
+     */
     public List<Profesor> getProfesores() {
         return profesores;
     }
@@ -73,6 +77,10 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+    
+    /** 
+     * @param profesores
+     */
     public void setProfesores(List<Profesor> profesores) {
         this.profesores = profesores;
     }

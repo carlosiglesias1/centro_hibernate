@@ -26,15 +26,27 @@ public class SesionFactory {
         }
     }
 
+    
+    /** 
+     * @return SesionFactory
+     */
     public static SesionFactory getSesionFactory() {
         return sesionFactory;
     }
 
+    
+    /** 
+     * @return Session
+     */
     public Session openCurrentSession() {
         currentSession = sessionFactory.openSession();
         return currentSession;
     }
 
+    
+    /** 
+     * @return Transaction
+     */
     public Transaction openCurrentSessionwithTransaction() {
         if (currentSession == null || !currentSession.isOpen())
             currentSession = openCurrentSession();
@@ -51,18 +63,34 @@ public class SesionFactory {
         currentSession.close();
     }
 
+    
+    /** 
+     * @return Session
+     */
     public Session getCurrentSession() {
         return currentSession;
     }
 
+    
+    /** 
+     * @param currentSession
+     */
     public void setCurrentSession(Session currentSession) {
         this.currentSession = currentSession;
     }
 
+    
+    /** 
+     * @return Transaction
+     */
     public Transaction getCurrentTransaction() {
         return transaction;
     }
 
+    
+    /** 
+     * @param currentTransaction
+     */
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.transaction = currentTransaction;
     }

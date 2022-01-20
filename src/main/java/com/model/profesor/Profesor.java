@@ -72,6 +72,10 @@ public class Profesor {
         return apellidos;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDepartamento() {
         return departamento;
     }
@@ -104,6 +108,10 @@ public class Profesor {
         this.apellidos = apellidos;
     }
 
+    
+    /** 
+     * @param departamento
+     */
     public void setDepartamento(int departamento) {
         this.departamento = departamento;
     }

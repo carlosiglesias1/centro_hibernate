@@ -13,18 +13,30 @@ public class MatriculaService {
         this.matriculaDAO = new MatriculaDAO();
     }
 
+    
+    /** 
+     * @param matricula
+     */
     public void persist(Matricula matricula) {
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.matriculaDAO.persist(matricula, this.sesionFactory.getCurrentSession());
         this.sesionFactory.closeCurrentSessionwithTransaction();
     }
 
+    
+    /** 
+     * @param matricula
+     */
     public void update(Matricula matricula) {
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.matriculaDAO.update(matricula, this.sesionFactory.getCurrentSession());
         this.sesionFactory.closeCurrentSessionwithTransaction();
     }
 
+    
+    /** 
+     * @param matricula
+     */
     public void delete(Matricula matricula){
         this.sesionFactory.openCurrentSessionwithTransaction();
         this.matriculaDAO.delete(matricula, this.sesionFactory.getCurrentSession());
@@ -36,6 +48,11 @@ public class MatriculaService {
         this.matriculaDAO.deleteAll(this.sesionFactory.getCurrentSession());
         this.sesionFactory.closeCurrentSessionwithTransaction();
     }
+    
+    /** 
+     * @param id
+     * @return Matricula
+     */
     public Matricula findById(int id){
         this.sesionFactory.openCurrentSession();
         Matricula found = this.matriculaDAO.findById(id, this.sesionFactory.getCurrentSession());
@@ -43,6 +60,10 @@ public class MatriculaService {
         return found;
     }
 
+    
+    /** 
+     * @return List<Matricula>
+     */
     public List<Matricula> findAll(){
         this.sesionFactory.openCurrentSession();
         List<Matricula> matriculas = this.matriculaDAO.findAll(this.sesionFactory.getCurrentSession());
