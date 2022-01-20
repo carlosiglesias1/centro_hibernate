@@ -39,6 +39,6 @@ public class ProfesorDAO implements DAO<Profesor> {
     @Override
     @SuppressWarnings("unchecked")
     public List<Profesor> findAll(Session session) {
-        return  session.createQuery("FROM Profesor").list();
+        return (List<Profesor>) session.createQuery("FROM Profesor").list();
     }
 }

@@ -19,6 +19,7 @@ public class AlumnoDAO implements DAO<Alumno> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Alumno> findAll(Session session) {
         return (List<Alumno>) session.createQuery("from Alumno").list();
     }

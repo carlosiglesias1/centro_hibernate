@@ -12,6 +12,10 @@ import com.model.departamento.Departamento;
 import com.model.profesor.Profesor;
 
 public class Menu {
+    /**
+     *
+     */
+    private static final String INPUT_NAME = "Introduce el nombre";
     Scanner teclado;
 
     public Menu() {
@@ -190,7 +194,7 @@ public class Menu {
      * @return int
      */
     public int asignaturaOtions() {
-        System.out.println("\t1.-Dar de alta una asignatura\n\t2.-Borrar asignatura");
+        System.out.println("\t1.-Dar de alta una asignatura\n\t2.-Actualizar asignatura\n\t3.-Borrar asignatura");
         return Integer.parseInt(this.teclado.nextLine());
     }
 
@@ -254,7 +258,7 @@ public class Menu {
      * @return Departamento
      */
     public Departamento inputDepartamento() {
-        System.out.println("Introduce el nombre");
+        System.out.println(INPUT_NAME);
         return new Departamento(teclado.nextLine());
     }
 
@@ -318,7 +322,7 @@ public class Menu {
         Profesor profesor = new Profesor();
         System.out.println("Introduce el dni");
         profesor.setDni(teclado.nextLine());
-        System.out.println("Introduce el nombre");
+        System.out.println(INPUT_NAME);
         profesor.setNombre(teclado.nextLine());
         System.out.println("Introduce los apellidos");
         profesor.setApellidos(teclado.nextLine());
@@ -330,7 +334,7 @@ public class Menu {
         Profesor profesor = new Profesor();
         System.out.println("Introduce el dni");
         profesor.setDni(teclado.nextLine());
-        System.out.println("Introduce el nombre");
+        System.out.println(INPUT_NAME);
         profesor.setNombre(teclado.nextLine());
         System.out.println("Introduce los apellidos");
         profesor.setApellidos(teclado.nextLine());

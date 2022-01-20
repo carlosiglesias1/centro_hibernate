@@ -31,7 +31,12 @@ public class AsignaturaController {
      * @param asignaturaDAO
      */
     static void borrarAsignatura(AsignaturaService asignaturaService, Menu menu) {
-        asignaturaService.delete(menu.selectAsignatura(asignaturaService.findAll()));
+        if (!asignaturaService.findAll().isEmpty())
+            asignaturaService.delete(menu.selectAsignatura(asignaturaService.findAll()));
+        else {
+            Asignatura asignatura = menu.inputAsignatura();
+            asignaturaService.persist(asignatura);
+        }
     }
 
     /**
@@ -64,10 +69,10 @@ public class AsignaturaController {
                 crearAsignatura(asignaturaService, menu);
                 break;
             case 2:
-                borrarAsignatura(asignaturaService, menu);
+                actualizarAsignatura(asignaturaService, menu);
                 break;
             case 3:
-                actualizarAsignatura(asignaturaService, menu);
+                borrarAsignatura(asignaturaService, menu);
                 break;
             default:
                 List<Asignatura> asignaturas = asignaturaService.findAll();

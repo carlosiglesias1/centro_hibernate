@@ -33,6 +33,7 @@ public class AsignaturaDAO implements DAO<Asignatura> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Asignatura> findAll(Session session) {
         return (List<Asignatura>) session.createQuery("FROM Asignatura").list();
     }

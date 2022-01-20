@@ -36,6 +36,7 @@ public class DepartamentoDAO implements DAO<Departamento> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Departamento> findAll(Session session) {
         return (List<Departamento>) session.createQuery("from Departamento").list();
     }

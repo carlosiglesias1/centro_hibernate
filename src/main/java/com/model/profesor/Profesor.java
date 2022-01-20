@@ -6,10 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Profesor {
+    /**
+     *
+     */
+    private static final String TABS = "\t|\t";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODPROF")
@@ -110,6 +113,6 @@ public class Profesor {
      */
     @Override
     public String toString() {
-        return "\t|" + this.codProf + "\t|\t" + this.dni + "\t|\t" + this.nombre + "\t|\t" + this.apellidos + "\t|\t";
+        return "\t|" + this.codProf + TABS + this.dni + TABS + this.nombre + TABS + this.apellidos + TABS;
     }
 }

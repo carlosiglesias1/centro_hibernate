@@ -38,6 +38,7 @@ public class MatriculaDAO implements DAO<Matricula> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Matricula> findAll(Session session) {
         return (List<Matricula>) session.createQuery("from Matricula").list();
     }
